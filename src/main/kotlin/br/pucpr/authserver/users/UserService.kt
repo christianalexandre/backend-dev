@@ -1,8 +1,12 @@
 package br.pucpr.authserver.users
 
 import br.pucpr.authserver.exception.NotFoundException
+import br.pucpr.authserver.exception.UnauthorizedException
 import br.pucpr.authserver.exceptions.BadRequestException
 import br.pucpr.authserver.roles.RoleRepository
+import br.pucpr.authserver.security.Jwt
+import br.pucpr.authserver.users.responses.LoginResponse
+import br.pucpr.authserver.users.responses.UserResponse
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
@@ -11,15 +15,14 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     val repository: UserRepository,
-    val roleRepository: RoleRepository
+    val roleRepository: RoleRepository,
+    val jwt: Jwt
 ) {
     fun insert(user: User): User {
         if (repository.findByEmail(user.email) != null) {
             throw BadRequestException("User already exists")
         }
-        val user = repository.save(user)
-        log.info("Inserted new user {}", user.id)
-        return user
+        return repository.save(user)
     }
 
     fun findAll(dir: SortDir = SortDir.ASC) = when (dir) {
@@ -36,20 +39,21 @@ class UserService(
             throw BadRequestException("Cannot delete the last admin")
         }
         repository.delete(user)
-        log.info("User {} deleted", user.id)
+        log.info("User $id deleted successfully")
     }
 
-    fun findByRole(role: String) = repository.findByRole(role.uppercase())
+    fun findByRole(role: String) = repository.findByRole(role)
 
     fun addRole(id: Long, roleName: String): Boolean {
         val upperRole = roleName.uppercase()
         val user = findById(id)
-        val role = roleRepository.findByName(upperRole) ?:
-            throw BadRequestException("Role $upperRole not found")
+        if (user.roles.any { it.name == upperRole }) return false
+
+        val role = roleRepository.findByName(upperRole) ?: throw BadRequestException("Role $upperRole not found")
 
         user.roles.add(role)
         repository.save(user)
-        log.info("Added role {} to user {}", upperRole, user.id)
+        log.info("User $id successfully added to role $role")
         return true
     }
 
@@ -63,7 +67,20 @@ class UserService(
         return user
     }
 
+    fun login(email: String, password: String): LoginResponse {
+        val user = repository.findByEmail(email) ?: throw UnauthorizedException("User $email not found")
+
+        if (user.password != password)
+            throw UnauthorizedException("Invalid password")
+
+        log.info("User ${user.id} is logged in")
+        return LoginResponse(
+            token = jwt.createToken(user),
+            UserResponse(user)
+        )
+    }
+
     companion object {
-        private val log = LoggerFactory.getLogger(UserService::class.java)
+        val log = LoggerFactory.getLogger(UserService::class.java)
     }
 }

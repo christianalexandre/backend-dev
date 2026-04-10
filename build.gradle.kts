@@ -33,6 +33,20 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	//JPA e H2
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-h2console")
+	runtimeOnly("com.h2database:h2")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+
+	//Spring security e JJWT
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+	val jjwt = "0.13.0"
+	implementation("io.jsonwebtoken:jjwt-api:${jjwt}")
+	implementation("io.jsonwebtoken:jjwt-jackson:${jjwt}")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwt}")
 }
 
 kotlin {

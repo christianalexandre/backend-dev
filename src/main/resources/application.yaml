@@ -26,6 +26,8 @@ server:
 springdoc:
   swagger-ui:
     use-root-path: true
+
 logging:
   file:
     path: ./logs
+
