@@ -1,24 +1,16 @@
 # Desenvolvimento Backend
 
-Código final da aula 02 - Persistência
+Código inicial da aula 03 - Validação e erros
 
-Nesta aula, adicionamos um serviço para inserção de papéis e formas de vincular o usuário a seu papel.
-Não contém a resolução do exercício (proibir a exclusão do último administrador)
+Nesta aula, veremos como validar dados de entrada, tratar erros e garantir a interface do nosso servidor.
 
-## Arquivos modificados
-- build.gradle.kts: Adicionada a biblioteca do JPA e configurado o plugin
-- application.yaml: Configurações do JPA
+## Resolução da atividade da aula 02
 
-## Classes modificadas
+A atividade da aula 2 está resolvida. Verifique:
 
-- User: Mapeamento do usuário no JPA, lista de papéis
-- UserRepository: Alterado para usar o JPA
-- UserService: Inserção com validação do email único
-- UserController
+1. A classe User, que contém um método para testar se o usuário é ou não um administrador. Esse método foi marcado com
+`@Transient`, já que não queremos persisti-lo no banco.
+2. A classe `UserService`, que faz a validação.
+3. A classe `UserController` que trata gera a resposta de `BAD_REQUEST`.
 
-## Classes adicionadas
-
-- Role: Papel possível para o usuário
-- RoleRepository, RoleService e RoleController: Classes MVC do papel, similar as do usuário
-- Boostrapper: Insere os papéis USER e PREMIUM e o usuário do administrador
-- Note que a camada de serviço garante que o nome do role seja sempre maiúsculo
+Você também pode usar o histórico do git para verificar as mudanças.

@@ -22,4 +22,7 @@ class User (
         inverseJoinColumns = [JoinColumn(name = "idRole")]
     )
     var roles: MutableSet<Role> = mutableSetOf()
-)
+) {
+    @Transient
+    fun isAdmin() = roles.any { it.name == "ADMIN" }
+}

@@ -39,8 +39,10 @@ class UserController(val service: UserService) {
     fun delete(
         @PathVariable id: Long
     ): ResponseEntity<Void> =
-        if (service.delete(id)) ResponseEntity.ok().build()
-        else ResponseEntity.notFound().build()
+        service.delete(id)?.let {
+            if (it) ResponseEntity.ok().build()
+            else ResponseEntity.notFound().build()
+        } ?: ResponseEntity.badRequest().build()
 
     @PutMapping("/{id}/roles/{role}")
     fun grant(
