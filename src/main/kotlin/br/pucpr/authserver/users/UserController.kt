@@ -15,10 +15,10 @@ class UserController(val service: UserService) {
             ?: ResponseEntity.badRequest().build()
 
     @PostMapping
-    fun insert(@RequestBody user: User): ResponseEntity<User> {
-        val created = service.insert(user)
-        return ResponseEntity.status(HttpStatus.CREATED).body(created)
-    }
+    fun insert(@RequestBody user: User) =
+        service.insert(user)
+            ?.let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
+            ?: ResponseEntity.badRequest().build()
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long) =

@@ -1,8 +1,13 @@
 # Desenvolvimento Backend
 
-Código inicial da aula 02 - Persistência
+Código final da aula 02 - Persistência
 
-Nesta aula, adicionaremos um serviço para inserção de papéis e formas de vincular o usuário a seu papel.
-Não contém a resolução da atividade de não permitir a exclusão do último administrador
+## Arquivos modificados
+- build.gradle.kts: Adicionada a biblioteca do JPA e configurado o plugin
+- application.yaml: Configurações do JPA
 
-O código inicial contém o servidor feito na aula um e a resolução dos exercícios.
+## Classes modificadas
+- User: Mapeamento do usuário no JPA
+- UserRepository: Alterado para usar o JPA
+- UserService: Inserção com validação do email único
+- UserController
