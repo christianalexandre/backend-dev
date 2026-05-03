@@ -31,3 +31,6 @@ logging:
   file:
     path: ./logs
 
+dummyjson:
+  base-url: https://dummyjson.com
+

@@ -35,6 +35,7 @@ class SecurityConfig(
             .headers { it.frameOptions { fo -> fo.disable() } }
             .authorizeHttpRequests { requests ->
                 requests
+                    .requestMatchers("/orders/**").authenticated()
                     .requestMatchers(HttpMethod.GET).permitAll()
                     .requestMatchers(HttpMethod.POST, "/users").permitAll()
                     .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
