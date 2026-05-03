@@ -1,13 +1,12 @@
 # Desenvolvimento Backend
 
-Neste projeto, você encontra os arquivos iniciais baixados diretamente do Spring Initializr:
+Código final da aula 04 - Segurança e JWT
 
-- Projeto: Gradle - Kotlin
-- Linguagem: Kotlin
-- Spring Boot: 4.0.5
-- Java 21
+Nesta aula, vimos como integrar o Spring Security para adicionar autenticação JJWT
 
-## Dependências
+## Modificações
 
-- Spring Web MVC
-- Validation
+* Spring Security e JJWT adicionados ao `build.gradle.kts`
+* Veja o pacote `security` para entender o security filter e a security config
+* Anotações de segurança incluídas nos controllers
+* Verifique o método `updateUser` para autenticação avançada
