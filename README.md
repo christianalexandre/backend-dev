@@ -1,12 +1,8 @@
 # Desenvolvimento Backend
 
-Código final da aula 04 - Segurança e JWT
+Trabalho final - Desenvolvimento backend
 
-Nesta aula, vimos como integrar o Spring Security para adicionar autenticação JJWT
+Código com as alterações feitas em aulas + implementação de endpoints para fluxo de checkout com a ideia de ser utilizado futuramente com o projeto desenvolvido anteriormente no curso [Fake Store](https://github.com/christianalexandre/fakestore-compose)
 
-## Modificações
-
-* Spring Security e JJWT adicionados ao `build.gradle.kts`
-* Veja o pacote `security` para entender o security filter e a security config
-* Anotações de segurança incluídas nos controllers
-* Verifique o método `updateUser` para autenticação avançada
+Visualização da ideia:
+![](./fakestore-flow.jpg)
